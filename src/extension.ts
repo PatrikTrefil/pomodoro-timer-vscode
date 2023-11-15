@@ -210,6 +210,12 @@ export function activate(context: vscode.ExtensionContext) {
           prompt: "Enter session duration in mins",
           placeHolder: "e.g. 10",
         });
+        if (newSessionDurationString === undefined) {
+          vscode.window.showErrorMessage(
+            "You need to provide a session duration. Sesssion start cancelled."
+          );
+          return;
+        }
         const newSessionDurationNumber = Number(newSessionDurationString);
         if (isNaN(newSessionDurationNumber) === false) {
           sessionDuration = newSessionDurationNumber;
