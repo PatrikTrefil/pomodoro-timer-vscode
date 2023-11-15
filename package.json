@@ -2,20 +2,34 @@
   "name": "pomodoro-timer",
   "displayName": "pomodoro-timer",
   "description": "Splits your work day into short sessions of intense focus to maximize your productivity and get stats about your work.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.84.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "pomodoro-timer.helloWorld",
-        "title": "Hello World"
+        "command": "pomodoro-timer.startTimerStandard",
+        "title": "Start pomodoro timer 25 mins"
+      },
+      {
+        "command": "pomodoro-timer.cancelTimer",
+        "title": "Cancel current pomodoro timer"
+      },
+      {
+        "command": "pomodoro-timer.startTimerCustom",
+        "title": "Start custom pomodoro timer"
+      },
+      {
+        "command": "pomodoro-timer.showPomodoroStats",
+        "title": "Show pomodoro stats"
       }
     ]
   },
