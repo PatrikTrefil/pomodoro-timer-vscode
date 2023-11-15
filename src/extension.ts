@@ -1,4 +1,6 @@
 import * as vscode from "vscode";
+import papaparse from "papaparse";
+import fs from "fs";
 
 type HistoryItem = { duration: number; workspaceName: string };
 type History = HistoryItem[];
@@ -284,6 +286,35 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  const exportStatsDisposable = vscode.commands.registerCommand(
+    "pomodoro-timer.exportPomodoroStats",
+    async () => {
+      const folderToExportTo = await vscode.window.showOpenDialog({
+        canSelectFiles: false,
+        canSelectFolders: true,
+        canSelectMany: false,
+        title: "Select folder to export stats to",
+      });
+      if (folderToExportTo === undefined) {
+        vscode.window.showErrorMessage("No folder selected");
+        return;
+      }
+      const fileNameInput = await vscode.window.showInputBox({
+        prompt: "Enter file name without extension (leave empty for deafult)",
+        placeHolder: "e.g. pomodoro-stats",
+      });
+      const fileName =
+        fileNameInput === undefined || fileNameInput === ""
+          ? "pomodoro-stats.csv"
+          : fileNameInput + ".csv";
+
+      fs.writeFileSync(
+        `${folderToExportTo[0].fsPath}/${fileName}`,
+        papaparse.unparse(historyManager.getHistory())
+      );
+    }
+  );
+
   pomodoroStatusBarItem.show();
 
   context.subscriptions.push(pomodoroStatusBarItem);
@@ -291,6 +322,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(cancelTimerDisposable);
   context.subscriptions.push(startCustomTimerDisposable);
   context.subscriptions.push(showStatsDisposable);
+  context.subscriptions.push(exportStatsDisposable);
 }
 
 // This method is called when your extension is deactivated
