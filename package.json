@@ -17,21 +17,31 @@
     "commands": [
       {
         "command": "pomodoro-timer.startTimerStandard",
-        "title": "Start pomodoro timer 25 mins"
+        "title": "Start standard pomodoro session"
       },
       {
         "command": "pomodoro-timer.cancelTimer",
-        "title": "Cancel current pomodoro timer"
+        "title": "Cancel current pomodoro session"
       },
       {
         "command": "pomodoro-timer.startTimerCustom",
-        "title": "Start custom pomodoro timer"
+        "title": "Start custom pomodoro session"
       },
       {
         "command": "pomodoro-timer.showPomodoroStats",
         "title": "Show pomodoro stats"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Pomodoro Timer",
+      "properties": {
+        "pomodoro-timer.defaultSessionDuration": {
+          "type": "number",
+          "default": 25,
+          "description": "Default session duration in minutes"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run compile",

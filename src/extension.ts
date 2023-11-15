@@ -156,7 +156,17 @@ export function activate(context: vscode.ExtensionContext) {
   const startTimerDisposable = vscode.commands.registerCommand(
     "pomodoro-timer.startTimerStandard",
     () => {
-      const defaultSessionDurationInMins = 25;
+      const defaultSessionDurationInMins = vscode.workspace
+        .getConfiguration("pomodoro-timer")
+        .get<number>("defaultSessionDuration");
+
+      if (defaultSessionDurationInMins === undefined) {
+        vscode.window.showErrorMessage(
+          "Pomodoro timer extension is not configured. Please set pomodoro-timer.defaultSessionDuration in your settings."
+        );
+        return;
+      }
+
       try {
         sessionManager.startNewSession(defaultSessionDurationInMins);
       } catch (e) {

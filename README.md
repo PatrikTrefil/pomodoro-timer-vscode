@@ -5,7 +5,9 @@ also creates a history of all your sessions with basic statistics.
 
 ## Extension Settings
 
-Currently there are no settings for this extension.
+- `pomodoro-timer.defaultSessionDuration`: The default duration of a session in
+  minutes. Default is 25 minutes. It is used by the
+  `pomodoro-timer.startTimerStandard` command.
 
 ## Release notes
 
