@@ -1,3 +1,5 @@
+[![Main workflow](https://github.com/PatrikTrefil/pomodoro-timer-vscode/actions/workflows/main.yml/badge.svg)](https://github.com/PatrikTrefil/pomodoro-timer-vscode/actions/workflows/main.yml)
+
 # pomodoro-timer
 
 This extension is a pomodoro timer for VS Code. Besides providing a timer it
