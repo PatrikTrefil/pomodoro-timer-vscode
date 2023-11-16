@@ -5,7 +5,23 @@
 This extension is a pomodoro timer for VS Code. Besides providing a timer it
 also creates a history of all your sessions with basic statistics.
 
-## Extension Settings
+## Usage
+
+The extension is controlled by running commands using the command palette.
+
+### Commands
+
+- `pomodoro-timer.startTimerStandard` - Starts a timer with the default session
+  duration.
+- `pomodoro-timer.cancelTimer` - Cancels the current timer.
+- `pomodoro-timer.startTimerCustom` - Starts a timer with a custom session
+  duration.
+- `pomodoro-timer.showPomodoroStats` - Shows the statistics of all sessions in a
+  web view.
+- `pomodoro-timer.exportPomodoroStats` - Exports the statistics of all sessions
+  to a CSV file.
+
+### Extension Settings
 
 - `pomodoro-timer.defaultSessionDuration`: The default duration of a session in
   minutes. Default is 25 minutes. It is used by the
