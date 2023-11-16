@@ -82,22 +82,25 @@ class SessionManager {
     if (this.session !== null) {
       throw new Error("There is already a running session");
     }
-    const newEndTime = new Date();
-    newEndTime.setMinutes(newEndTime.getMinutes() + durationInMins);
+
+    const newStartDateTime = new Date();
+    const newEndDateTime = new Date(newStartDateTime);
+    newEndDateTime.setMinutes(newEndDateTime.getMinutes() + durationInMins);
+
+    // Finish session after durationInMins
+    setTimeout(() => {
+      this.endCurrentSession();
+      vscode.window.showInformationMessage("Pomodoro session finished!");
+    }, durationInMins * 60 * 1000);
 
     this.statusBarItem.text = `Pomodoro Timer: ${durationInMins} min`;
 
     // Update status bar periodically
     let updateIntervalId = setInterval(() => {
-      const diffInMs = newEndTime.getTime() - new Date().getTime();
+      const diffInMs = newEndDateTime.getTime() - new Date().getTime();
       const diffInS = diffInMs / 1000;
-      const diffInMins = Math.floor(diffInS / 60);
+      const diffInMins = Math.ceil(diffInS / 60);
 
-      const isSessionDone = newEndTime < new Date();
-      if (isSessionDone) {
-        vscode.window.showInformationMessage("Pomodoro session finished!");
-        this.endCurrentSession();
-      }
       console.debug("Update status bar item");
       this.statusBarItem.text = `Pomodoro Timer: ${
         diffInMins < 0 ? 0 : diffInMins
