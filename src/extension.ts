@@ -37,6 +37,13 @@ class HistoryManager {
   getHistory(): History {
     return this.globalState.get<History>(this.globalStateKey) ?? [];
   }
+
+  /**
+   * Clear history saved in vscode global state.
+   */
+  clearHistory(): void {
+    this.globalState.update(this.globalStateKey, []);
+  }
 }
 
 type Session = {
@@ -318,6 +325,14 @@ export function activate(context: vscode.ExtensionContext) {
         `${folderToExportTo[0].fsPath}/${fileName}`,
         papaparse.unparse(historyManager.getHistory())
       );
+    }
+  );
+
+  const clearPomodoroStarts = vscode.commands.registerCommand(
+    "pomodoro-timer.clearPomodoroStats",
+    () => {
+      historyManager.clearHistory();
+      vscode.window.showInformationMessage("Pomodoro stats cleared");
     }
   );
 
