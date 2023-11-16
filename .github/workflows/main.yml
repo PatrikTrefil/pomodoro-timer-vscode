@@ -8,7 +8,10 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
@@ -21,8 +24,12 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-      - name: Build & test
-        run: pnpm run test # already includes compile
+
+        # https://code.visualstudio.com/api/working-with-extensions/continuous-integration#github-actions
+      - run: xvfb-run -a pnpm test
+        if: runner.os == 'Linux'
+      - run: pnpm test
+        if: runner.os != 'Linux'
 
   lint:
     runs-on: ubuntu-latest
