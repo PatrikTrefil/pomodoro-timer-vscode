@@ -347,6 +347,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(startCustomTimerDisposable);
   context.subscriptions.push(showStatsDisposable);
   context.subscriptions.push(exportStatsDisposable);
+  context.subscriptions.push(clearPomodoroStarts);
 }
 
 // This method is called when your extension is deactivated
