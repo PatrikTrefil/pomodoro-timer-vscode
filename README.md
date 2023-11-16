@@ -12,3 +12,15 @@ also creates a history of all your sessions with basic statistics.
 ## Release notes
 
 All notable changes are documented in the [CHANGELOG.md](CHANGELOG.md) file.
+
+## Development
+
+### Debugging
+
+Open this project in Visual Studio Code and press F5.
+
+### Tests
+
+```
+pnpm run test
+```
