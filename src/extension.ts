@@ -2,7 +2,12 @@ import * as vscode from "vscode";
 import papaparse from "papaparse";
 import fs from "fs";
 
-type HistoryItem = { duration: number; workspaceName: string };
+type HistoryItem = {
+  duration: number;
+  workspaceName: string;
+  startDateTime: Date;
+  endDateTime: Date;
+};
 type History = HistoryItem[];
 
 /**
@@ -47,7 +52,8 @@ class HistoryManager {
 }
 
 type Session = {
-  endTime: Date;
+  startDateTime: Date;
+  endDateTime: Date;
   updateIntervalId: NodeJS.Timeout;
   durationInMins: number;
 };
@@ -107,7 +113,8 @@ class SessionManager {
       } min`;
     }, 1000 * 10);
     this.session = {
-      endTime: newEndTime,
+      startDateTime: newStartDateTime,
+      endDateTime: newEndDateTime,
       updateIntervalId,
       durationInMins: durationInMins,
     };
@@ -126,11 +133,13 @@ class SessionManager {
     clearInterval(this.session.updateIntervalId);
     this.statusBarItem.hide();
 
-    const isSessionFinished = this.session.endTime < new Date();
+    const isSessionFinished = this.session.endDateTime < new Date();
     if (isSessionFinished) {
       this.historyManager.saveSession({
         duration: this.session.durationInMins,
         workspaceName: vscode.workspace.name ?? "unknown",
+        startDateTime: this.session.startDateTime,
+        endDateTime: this.session.endDateTime,
       });
     }
 
@@ -257,6 +266,8 @@ export function activate(context: vscode.ExtensionContext) {
               <tr>
                 <th>Workspace</th>
                 <th>Duration (mins)</th>
+                <th>Start date</th>
+                <th>End date</th>
               </tr>
             </thead>
             <tbody>
@@ -266,6 +277,8 @@ export function activate(context: vscode.ExtensionContext) {
                   <tr>
                     <td>${historyItem.workspaceName}</td>
                     <td>${historyItem.duration}</td>
+                    <td>${historyItem.startDateTime.toLocaleString()}</td>
+                    <td>${historyItem.endDateTime.toLocaleString()}</td>
                   </tr>`
               )}
             </tbody>
