@@ -20,6 +20,8 @@ The extension is controlled by running commands using the command palette.
   web view.
 - `pomodoro-timer.exportPomodoroStats` - Exports the statistics of all sessions
   to a CSV file.
+- `pomodoro-timer.clearPomodoroStats` - Clears the statistics of all sessions
+  (irreversible action!).
 
 ### Extension Settings
 
