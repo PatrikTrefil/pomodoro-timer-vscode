@@ -49,7 +49,7 @@ export function activate(context: vscode.ExtensionContext) {
 
   const startCustomTimerDisposable = vscode.commands.registerCommand(
     "pomodoro-timer.startTimerCustom",
-    commandFactory.createStartTimerCommand()
+    commandFactory.createStartCustomTimerCommand()
   );
 
   const showStatsDisposable = vscode.commands.registerCommand(
