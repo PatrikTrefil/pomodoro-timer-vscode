@@ -7,7 +7,8 @@ also creates a history of all your sessions with basic statistics.
 
 ## Usage
 
-The extension is controlled by running commands using the command palette.
+The extension is controlled by running commands using the command palette
+(`Ctrl + Shift + P` (Windows/Linux) / `Command + Shift + P` (Mac)).
 
 ### Commands
 
