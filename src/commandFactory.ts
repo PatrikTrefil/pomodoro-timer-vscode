@@ -97,6 +97,17 @@ export class CommandFactory {
     const generateStatsPageHtml = () => {
       return `
       <html>
+        <head>
+          <style>
+            table, th, td {
+              border-style: solid;
+              border-collapse: collapse;
+            }
+            th, td {
+              padding: 5px;
+            }
+          </style>
+        </head>
         <body>
           <h1>Pomodoro stats</h1>
           <ul>
@@ -143,7 +154,7 @@ export class CommandFactory {
       const regenPageIntervalId = setInterval(() => {
         console.debug("Regenerating stats page");
         panel.webview.html = generateStatsPageHtml();
-      }, 1000 * 60 * 1);
+      }, 1000 * 30);
 
       panel.onDidDispose(
         () => {
